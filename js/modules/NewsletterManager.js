@@ -49,4 +49,24 @@ export class NewsletterManager extends Database {
             };
         };
     }
+
+    deleteSubscriber(id){
+        const request = indexedDB.open(this.dbname, this.version);
+
+        request.onsuccess = function (e) {
+            const db = e.target.result;
+            const transaction = db.transaction("subscribers", "readwrite");
+            const objectStore = transaction.objectStore("subscribers");
+
+            const deleteRequest = objectStore.delete(id);
+
+            deleteRequest.onsuccess = function () {
+                console.log("Subscriber deleted:", id);
+            };
+
+            deleteRequest.onerror = function (e) {
+                console.error("Error deleting subscriber:", e.target.errorCode);
+            };
+        };
+    }
 }
