@@ -1,4 +1,4 @@
-import { Database } from "./database.js";
+import { Database } from "../core/Database.js";
 
 // Class responsável pela Gestão de Eventos
 export class EventManager extends Database {
@@ -6,119 +6,119 @@ export class EventManager extends Database {
         super(name, version);
     }
 
-    addEvent(name, description, date, hour, local){
-        const request = indexedDB.open(this.dbname, this.version);  
-        request.onsuccess = function (e) {
-            const db = e.target.result;
-            const transaction = db.transaction("events", "readwrite");
-            const objectStore = transaction.objectStore("events");
+    addEvent(name, description, date, hour, local) {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(this.dbname, this.version);  
+            request.onsuccess = function (e) {
+                const db = e.target.result;
+                const transaction = db.transaction("events", "readwrite");
+                const objectStore = transaction.objectStore("events");
 
-            const event = { name, description, date, hour, local };
-            const addRequest = objectStore.add(event);
+                const event = { name, description, date, hour, local };
+                const addRequest = objectStore.add(event);
 
-            addRequest.onsuccess = function (e) {
-                const id = e.target.result; //  id gerado automaticamente
-                console.log("Event added:", { ...event, id });
-            };
+                addRequest.onsuccess = function (e) {
+                    const id = e.target.result;
+                    resolve({ ...event, id });
+                };
 
-            addRequest.onerror = function (e) {
-                console.error("Error adding event:", e.target.errorCode);
+                addRequest.onerror = function (e) {
+                    reject("Error adding event:", e.target.errorCode);
+                }
             }
-        }
+            request.onerror = function (e) {
+                reject("Error opening DB:", e.target.errorCode);
+            }
+        });
     }
 
-    readEvents(){
-        const request = indexedDB.open(this.dbname, this.version);
+    readEvents() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(this.dbname, this.version);
 
-        request.onsuccess = function (e) {
-        const db = e.target.result;
-        const transaction = db.transaction("events", "readonly");
-        const objectStore = transaction.objectStore("events");
+            request.onsuccess = function (e) {
+                const db = e.target.result;
+                const transaction = db.transaction("events", "readonly");
+                const objectStore = transaction.objectStore("events");
 
-        const getRequest = objectStore.getAll();
+                const getRequest = objectStore.getAll();
 
-        getRequest.onsuccess = function () {
-            if (getRequest.result.length > 0) {
-            console.log("Events found:", getRequest.result);
-            } else {
-            console.log("No events found!");
+                getRequest.onsuccess = function () {
+                    resolve(getRequest.result);
+                };
+
+                getRequest.onerror = function (e) {
+                    reject("Error retrieving events:", e.target.errorCode);
+                };
+            };
+            request.onerror = function (e) {
+                reject("Error opening DB:", e.target.errorCode);
             }
-        };
-
-        getRequest.onerror = function (e) {
-            console.error("Error retrieving events:", e.target.errorCode);
-        };
-        };
+        });
     }
 
-    updateEvent(id, updatedData){
-        const request = indexedDB.open(this.dbname, this.version);
+    updateEvent(id, updatedData) {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(this.dbname, this.version);
 
-        request.onsuccess = function (e) {
-        const db = e.target.result;
-        const transaction = db.transaction("events", "readwrite");
-        const objectStore = transaction.objectStore("events");
+            request.onsuccess = function (e) {
+                const db = e.target.result;
+                const transaction = db.transaction("events", "readwrite");
+                const objectStore = transaction.objectStore("events");
 
-        const putRequest = objectStore.put({ ...updatedData, id });
+                const getRequest = objectStore.get(id);
 
-        putRequest.onsuccess = function () {
-            console.log("Event updated:", { ...updatedData, id });
-        };
+                getRequest.onsuccess = function () {
+                    const existing = getRequest.result;
 
-        putRequest.onerror = function (e) {
-            console.error("Error updating event:", e.target.errorCode);
-        };
-        };
+                    if (!existing) {
+                        reject("Event not found!");
+                        return;
+                    }
+
+                    const putRequest = objectStore.put({ ...existing, ...updatedData, id });
+
+                    putRequest.onsuccess = function () {
+                        resolve({ ...existing, ...updatedData, id });
+                    };
+
+                    putRequest.onerror = function (e) {
+                        reject("Error updating event:", e.target.errorCode);
+                    };
+                };
+                
+                getRequest.onerror = function (e) {
+                    reject("Error fetching event to update:", e.target.errorCode);
+                }
+            };
+            request.onerror = function (e) {
+                reject("Error opening DB:", e.target.errorCode);
+            }
+        });
     }
 
-    updateEvent2(id, updatedData){
-    const request = indexedDB.open(this.dbname, this.version);
+    deleteEvent(id) {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(this.dbname, this.version);
 
-    request.onsuccess = function (e) {
-        const db = e.target.result;
-        const transaction = db.transaction("events", "readwrite");
-        const objectStore = transaction.objectStore("events");
+            request.onsuccess = function (e) {
+                const db = e.target.result;
+                const transaction = db.transaction("events", "readwrite");
+                const objectStore = transaction.objectStore("events");
 
-        const getRequest = objectStore.get(id);
+                const deleteRequest = objectStore.delete(id);
 
-        getRequest.onsuccess = function () {
-            const existing = getRequest.result;
+                deleteRequest.onsuccess = function () {
+                    resolve(id);
+                };
 
-            if (!existing) {
-                console.log("Event not found!");
-                return;
+                deleteRequest.onerror = function (e) {
+                    reject("Error deleting event:", e.target.errorCode);
+                };
+            };
+            request.onerror = function (e) {
+                reject("Error opening DB:", e.target.errorCode);
             }
-
-            const putRequest = objectStore.put({ ...existing, ...updatedData, id });
-
-            putRequest.onsuccess = function () {
-                console.log("Event updated:", { ...existing, ...updatedData, id });
-            };
-
-            putRequest.onerror = function (e) {
-                console.error("Error updating event:", e.target.errorCode);
-            };
-        };
-    };
-}
-
-    deleteEvent(id){
-        const request = indexedDB.open(this.dbname, this.version);
-
-        request.onsuccess = function (e) {
-            const db = e.target.result;
-            const transaction = db.transaction("events", "readwrite");
-            const objectStore = transaction.objectStore("events");
-
-            const deleteRequest = objectStore.delete(id);
-
-            deleteRequest.onsuccess = function () {
-                console.log("Event deleted:", id);
-            };
-
-            deleteRequest.onerror = function (e) {
-                console.error("Error deleting event:", e.target.errorCode);
-            };
-        };
+        });
     }
 }

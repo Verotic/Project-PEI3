@@ -1,4 +1,4 @@
-import { Database } from "./database.js";
+import { Database } from "../core/Database.js";
 
 // Class responsável pela Gestão de Newsletter
 export class NewsletterManager extends Database {

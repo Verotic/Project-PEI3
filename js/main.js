@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 1. Inicializa a Base de Dados (Julia)
   const db = new Database('CACADatabase', 1);
-  await db.connect(); // Método que cria as stores de eventos e newsletter
+  // O construtor já chama init() que cria/abre a base de dados
 
   // 2. Initialize Scroll to Top Button (Adriano)
   new ScrollManager('scrollTopBtn');
