@@ -13,8 +13,50 @@
 
 .footer-links {
   display: grid;
-  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
   gap: 32px;
+}
+
+/* Newsletter Form Styles */
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.newsletter-form .form-group {
+  margin-bottom: 0;
+}
+
+.newsletter-form input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.newsletter-form button {
+  padding: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+#form-feedback {
+  font-size: 0.85rem;
+  margin-top: 5px;
+  min-height: 20px;
+}
+
+.success-msg {
+  color: #1b5e20;
+}
+
+.error-msg {
+  color: #b71c1c;
 }
 
 .footer-col h3 {

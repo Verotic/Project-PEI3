@@ -5,6 +5,7 @@ import { ContactForm } from './modules/ContactForm.js';
 import { AnimationManager } from './modules/Animations.js';
 import { ChartManager } from './modules/ChartManager.js';
 import { Database } from './core/Database.js';
+import { NewsletterManager } from './modules/NewsletterManager.js';
 
 /**
  * Main application file.
@@ -17,7 +18,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   const db = new Database('CACADatabase', 1);
   // O construtor já chama init() que cria/abre a base de dados
 
-  // 2. Initialize Scroll to Top Button (Adriano)
+  // 2. Inicializa Newsletter (Daniela)
+  new NewsletterManager('CACADatabase', 1);
+
+  // 3. Initialize Scroll to Top Button (Adriano)
   new ScrollManager('scrollTopBtn');
 
   // 3. Initialize 3D Tilt Effect on Cards (Adriano)
