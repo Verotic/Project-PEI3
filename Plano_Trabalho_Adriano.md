@@ -18,3 +18,4 @@ O teu código está organizado nos seguintes ficheiros:
 - [x] Integrar a API de Mapas no detalhe de cada evento (`MapService.js` com OpenStreetMap/Leaflet).
 - [x] Implementar Reverse Geocoding: permitir selecionar local no mapa e extrair morada para o formulário.
 - [x] Usar comentários JSDoc nos teus métodos.
+- [x] Separar secções de Notícias e Eventos na Homepage e adicionar imagens dinâmicas e aleatórias (`picsum.photos`) aos Eventos.

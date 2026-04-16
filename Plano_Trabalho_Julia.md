@@ -17,6 +17,6 @@ O teu código está/estará organizado nos seguintes ficheiros:
 ## Resumo da Checklist - Julia:
 - [x] Criar a classe `Database` responsável por criar as tabelas da IndexedDB.
 - [x] Criar a base da persistência para o `EventManager` e `NewsletterManager`.
-- [ ] Integrar a API de Notícias ou RSS Feed na página.
-- [ ] Juntar o código de todos no ficheiro `main.js` e verificar conflitos.
-- [ ] Escrever o `README.md` com instruções, explicação da arquitetura da DB e detalhes das APIs.
+- [x] Integrar a API de Notícias ou RSS Feed na página.
+- [x] Juntar o código de todos no ficheiro `main.js` e verificar conflitos.
+- [x] Escrever o `README.md` com instruções, explicação da arquitetura da DB e detalhes das APIs.
