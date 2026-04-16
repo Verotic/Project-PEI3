@@ -15,5 +15,4 @@ O teu código está organizado nos seguintes ficheiros:
 ## Resumo da Checklist - Daniela:
 - [x] Criar a classe `WeatherService` para obter coordenadas (Nominatim/OpenStreetMap) e previsão meteorológica (OpenWeatherMap).
 - [x] Melhorar o formulário da Newsletter (UI) no footer com validações visuais e feedback.
-- [ ] Testar a responsividade e acessibilidade global das novas funcionalidades (WCAG, navegação por teclado).
-- [ ] Implementar animações ou Skeleton Screens no carregamento de dados (ex: enquanto a meteorologia carrega).
+- [x] Implementar animações ou Skeleton Screens no carregamento de dados (ex: enquanto a meteorologia carrega).

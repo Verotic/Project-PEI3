@@ -1,21 +1,21 @@
 /* ═══════════════════════════════════════════
-   NEWS
+   NEWS & EVENTS
    ═══════════════════════════════════════════ */
 
-.news {
+.news, .events {
   width: min(100% - 48px, 1120px);
   margin: 0 auto;
   padding: 22px 0 60px;
 }
 
-.news-head {
+.news-head, .events-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 26px;
 }
 
-.news-head h2 {
+.news-head h2, .events-head h2 {
   margin: 0;
   text-transform: none;
   letter-spacing: -0.01em;
@@ -23,14 +23,14 @@
   color: #1f2a3d;
 }
 
-.news-head a {
+.news-head a, .events-head a {
   text-decoration: none;
   color: #8c6b0d;
   font-weight: 700;
   font-size: 0.95rem;
 }
 
-.news-grid {
+.news-grid, .events-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(220px, 1fr));
   gap: 28px;

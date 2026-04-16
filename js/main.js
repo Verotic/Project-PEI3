@@ -7,6 +7,7 @@ import { ChartManager } from './modules/ChartManager.js';
 import { Database } from './core/Database.js';
 import { NewsletterManager } from './modules/NewsletterManager.js';
 import { NewsService } from './services/NewsService.js'
+import { HomepageEvents } from './modules/HomepageEvents.js';
 
 /**
  * Main application file.
@@ -46,4 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 7. Carrega as notícias (Julia)
   new NewsService();
+
+  // 8. Carrega os eventos na Homepage
+  new HomepageEvents('CACADatabase', 1);
 })

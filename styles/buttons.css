@@ -38,6 +38,12 @@
   border-color: #f3f5f8;
 }
 
+.btn-dark {
+  color: #fff;
+  background: #2d3440;
+  border-color: #1a1f2a;
+}
+
 .btn-stroke {
   color: #f0f3f9;
   background: transparent;
