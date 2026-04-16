@@ -93,13 +93,25 @@ function renderEvents(events) {
 // Função para carregar a meteorologia de um evento
 async function loadWeather(local, date, eventId) {
     const weatherContainer = document.getElementById(`weather-${eventId}`);
+
+    // Mostrar spinner enquanto carrega
+    weatherContainer.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <div class="spinner"></div>
+            <small>A carregar previsão...</small>
+        </div>
+    `;
+
     try {
         const weather = await weatherService.getWeatherForDate(local, date);
         if (weather) {
             weatherContainer.innerHTML = `
                 <small title="${weather.weather.description}">
-                    <img src="https://openweathermap.org/img/wn/${weather.weather.icon}.png" alt="${weather.weather.main}" style="width:20px; vertical-align:middle;">
-                    ${weather.temperature.current}${weather.temperature.unit} - ${weather.weather.description}
+                    <img src="https://openweathermap.org/img/wn/${weather.weather.icon}.png" alt="${weather.weather.main}" style="width:20px; vertical-align:middle;"class="fundo">
+                    ${weather.weather.description}
+                     🌡️ ${weather.temperature.current}${weather.temperature.unit}
+                     💨 ${weather.wind.speed}${weather.wind.unit}
+                     💧 ${weather.humidity}%
                 </small>
             `;
         } else {
