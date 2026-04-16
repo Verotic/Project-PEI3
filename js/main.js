@@ -6,6 +6,7 @@ import { AnimationManager } from './modules/Animations.js';
 import { ChartManager } from './modules/ChartManager.js';
 import { Database } from './core/Database.js';
 import { NewsletterManager } from './modules/NewsletterManager.js';
+import { NewsService } from './services/NewsService.js'
 
 /**
  * Main application file.
@@ -42,4 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     new AnimationManager();
     new ChartManager('investmentChart'); // Initialize Chart with optimization
   }, 100);
+
+  // 7. Carrega as notícias (Julia)
+  new NewsService();
 })
