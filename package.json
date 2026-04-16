@@ -1,0 +1,27 @@
+{
+  "name": "pei3",
+  "version": "1.0.0",
+  "description": "Este repositório contém o código-fonte e a documentação referente à **terceira e última fase (PI3)** do projeto da unidade curricular de Tecnologias Web.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Verotic/Project-PEI3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Verotic/Project-PEI3/issues"
+  },
+  "homepage": "https://github.com/Verotic/Project-PEI3#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}

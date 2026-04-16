@@ -3,17 +3,13 @@
  * Serviço para obter notícias portuguesas relacionadas com a saúde
  */
 
-const apiKey = "pub_6d663b8f4c7f4f3aa18bc581cb102986";
-
-const cardStyles = [
-  { thumbClass: "thumb-1" },
-  { thumbClass: "thumb-2" },
-  { thumbClass: "thumb-3" },
-];
-
 export class NewsService {
   constructor() {
-    this.apiKey = apiKey;
+    this.cardStyles = [
+      { thumbClass: "thumb-1" },
+      { thumbClass: "thumb-2" },
+      { thumbClass: "thumb-3" },
+    ];
     this.loadNews();
   }
 
@@ -28,11 +24,9 @@ export class NewsService {
     return `${String(date.getDate()).padStart(2, "0")} ${months[date.getMonth()]}, ${date.getFullYear()}`;
   }
 
-  // Chama a API: newsdata.io
+  // Chama a nossa API local
   async getNewsData() {
-    const url = `https://newsdata.io/api/1/latest?apikey=${this.apiKey}`
-              + `&country=pt&language=pt&category=health`
-              + `&timezone=atlantic/azores&image=1&removeduplicate=1`;
+    const url = `/api/news`;
 
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Erro na API: ${response.status}`);
@@ -65,7 +59,7 @@ export class NewsService {
   // Mostra skeletons enquanto a API carrega
   renderSkeletons(grid) {
     grid.innerHTML = "";
-    cardStyles.forEach(({ thumbClass }) => {
+    this.cardStyles.forEach(({ thumbClass }) => {
       const sk = document.createElement("article");
       sk.className = "news-card news-card--skeleton";
       sk.innerHTML = `
@@ -101,7 +95,7 @@ export class NewsService {
           link: "#",
           image_url: null,
         };
-        grid.appendChild(this.buildCard(article, cardStyles[i]));
+        grid.appendChild(this.buildCard(article, this.cardStyles[i]));
       }
 
     } catch (err) {

@@ -5,8 +5,7 @@
  
  const API_CONFIG = { 
      weather: { 
-         baseUrl: 'https://api.openweathermap.org/data/2.5', 
-         apiKey: '6d9cf7e1077b9b62e8e5596d81e1ef66' 
+         baseUrl: '/api/weather' 
      }, 
      geo: { 
          baseUrl: 'https://api.openweathermap.org/geo/1.0' 
@@ -17,7 +16,6 @@
      constructor(language = 'pt') { 
          this.baseUrl = API_CONFIG.weather.baseUrl; 
          this.geoUrl = API_CONFIG.geo.baseUrl; 
-         this.apiKey = API_CONFIG.weather.apiKey; 
          this.units = 'metric'; 
          this.language = language; 
      } 
@@ -47,7 +45,7 @@
          const coords = await this.getCoordinates(location); 
          
          // Buscar previsão 
-         const url = `${this.baseUrl}/forecast?lat=${coords.lat}&lon=${coords.lon}&appid=${this.apiKey}&units=${this.units}&lang=${this.language}`; 
+         const url = `${this.baseUrl}/forecast?lat=${coords.lat}&lon=${coords.lon}&units=${this.units}&lang=${this.language}`; 
          const response = await fetch(url); 
          
          if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`); 
