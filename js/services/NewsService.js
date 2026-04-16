@@ -22,7 +22,8 @@ export class NewsService {
     if (!dateStr) return "DATA INDEFINIDA";
     const months = ["JAN","FEV","MAR","ABR","MAI","JUN",
                     "JUL","AGO","SET","OUT","NOV","DEZ"];
-    const date = new Date(dateStr);
+    // Substitui espaço por T para garantir compatibilidade com Safari
+    const date = new Date(dateStr.replace(" ", "T"));
     if (isNaN(date)) return dateStr;
     return `${String(date.getDate()).padStart(2, "0")} ${months[date.getMonth()]}, ${date.getFullYear()}`;
   }
